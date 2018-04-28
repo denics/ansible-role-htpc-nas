@@ -36,7 +36,10 @@
       - create samba users
 
   - name: Make sure SAMBA server is started on boot
-    service: name=samba state=started enabled=yes
+    service: name=smbd state=started enabled=yes
+
+  - name: Make sure SAMBA server is started on boot
+    service: name=nmbd state=started enabled=yes
 
   when: htpc_nas_cifs
   tags:
