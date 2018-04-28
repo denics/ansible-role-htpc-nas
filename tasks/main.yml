@@ -43,7 +43,7 @@
 - block:
 
   - name: Install Netatalk
-    apt: name=netatalk state=present
+    apt: name=netatalk state=installed update_cache=yes cache_valid_time=3600
 
   - name: Update Netatalk Config
     template: src=afp.conf.j2 dest=/etc/netatalk/afp.conf owner=root group=root mode=0644 backup=yes
