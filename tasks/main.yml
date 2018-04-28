@@ -24,13 +24,16 @@
 - block:
 
   - name: Install SAMBA server
-    apt: name=samba state=installed update_cache=yes cache_valid_time=3600
+    apt: name={{ item }} state=installed update_cache=yes cache_valid_time=3600
+    with_items:
+      - samba
+      - samba-common
+      - python-glade2
 
   - name: Update SAMBA configuration
-    template: src=smb.conf dest=/etc/samba/smb.conf owner=root group=root
+    template: src=smb.conf.j2 dest=/etc/samba/smb.conf owner=root group=root mode=644
     notify:
       - create samba users
-      - restart samba
 
   - name: Make sure SAMBA server is started on boot
     service: name=samba state=started enabled=yes
