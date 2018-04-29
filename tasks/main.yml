@@ -8,7 +8,9 @@
     apt: name=nfs-kernel-server state=installed update_cache=yes cache_valid_time=3600
 
   - name: Configure NFS shares in /etc/exports
-    lineinfile: dest=/etc/exports regexp='^{{ htpc_media_path }}' line='{{ htpc_media_path }} *(rw,insecure,all_squash,anonuid={{ htpc_user_uid }},anongid={{ htpc_user_gid }})'
+    lineinfile: dest=/etc/exports 
+                regexp='^{{ htpc_media_path }}' 
+                line='{{ htpc_media_path }} 192.168.1.*(rw,async,no_root_squash,no_subtree_check,anonuid={{ htpc_user_uid }},anongid={{ htpc_user_gid }})'
     when: htpc_nas_nfs
     notify:
       - update nfs exports
